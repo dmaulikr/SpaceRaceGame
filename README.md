@@ -5,6 +5,11 @@ Repo following Project 23: Space Race: Per-pixel collision for SKSpriteNode at H
 
 ## Concepts learned/practiced
 * Per-pixel collision detection
+  * Create the ```SKPhysicsBody``` by passing in a texture and size, and use the player's current texture and size.
+  * Example:
+  ```Swift
+  player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.size)
+  ```
 * Generating random number within a range with GameplayKit's ```GKRandomDistribution``` class
   * Example:
   ```Swift
