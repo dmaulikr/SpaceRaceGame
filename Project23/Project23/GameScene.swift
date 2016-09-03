@@ -64,6 +64,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    // Handle player movement
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        // get the touch input and save location where user touched
+        guard let touch = touches.first else { return }
+        var location = touch.locationInNode(self)
+        
+        //keep touch input location within y-axis bounds between 100 and 668
+        if location.y < 100 {
+            location.y = 100
+        } else if location.y > 668 {
+            location.y = 668
+        }
+        
+        // keep player position within bounds set above
+        player.position = location
+    }
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
         
