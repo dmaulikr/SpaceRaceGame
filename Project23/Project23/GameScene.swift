@@ -122,4 +122,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         sprite.physicsBody?.linearDamping = 0
         sprite.physicsBody?.angularDamping = 0
     }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        // create instance of explosion animation and force unwrap
+        let explosion = SKEmitterNode(fileNamed: "explosion")!
+        // instruct where to position the explosion effect
+        explosion.position = player.position
+        // add the explosion animation to the scene
+        addChild(explosion)
+        
+        // remove the player node from the scene when there is collision
+        player.removeFromParent()
+        
+        // change the gameOver property to 'true' so that the score counter stops incrementing
+        gameOver = true
+        
+    }
 }
