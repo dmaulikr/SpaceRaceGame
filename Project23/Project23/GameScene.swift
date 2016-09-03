@@ -35,7 +35,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         starfield.zPosition = -1
         
         // create player node
-        player = SKSpriteNode(fileNamed: "player")
+        player = SKSpriteNode(imageNamed: "player")
         player.position = CGPoint(x: 100, y: 384)
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.size)
         player.physicsBody!.contactTestBitMask = 1
