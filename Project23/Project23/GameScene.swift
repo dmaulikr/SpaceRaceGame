@@ -64,6 +64,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    // Handle player movement
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        // get the touch input and save location where user touched
+        guard let touch = touches.first else { return }
+        var location = touch.locationInNode(self)
+        
+        //keep touch input location within y-axis bounds between 100 and 668
+        if location.y < 100 {
+            location.y = 100
+        } else if location.y > 668 {
+            location.y = 668
+        }
+        
+        // keep player position within bounds set above
+        player.position = location
+    }
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
         
@@ -104,5 +121,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // set linear and angular damping to 0 to simulate frictionless space environment
         sprite.physicsBody?.linearDamping = 0
         sprite.physicsBody?.angularDamping = 0
+    }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        // create instance of explosion animation and force unwrap
+        let explosion = SKEmitterNode(fileNamed: "explosion")!
+        // instruct where to position the explosion effect
+        explosion.position = player.position
+        // add the explosion animation to the scene
+        addChild(explosion)
+        
+        // remove the player node from the scene when there is collision
+        player.removeFromParent()
+        
+        // change the gameOver property to 'true' so that the score counter stops incrementing
+        gameOver = true
+        
     }
 }
